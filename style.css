@@ -1,0 +1,27 @@
+#message {
+    padding: 0 0 0 22px;
+    font-family: tahoma;
+    font-size: 12;
+}
+#popup {
+    position: absolute;
+    border: 1px solid #999;
+    padding: 6px;
+    background-color: #DEDDDE;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+
+iframe {
+    border: 0;
+}
+.click {
+    cursor: pointer;
+}
+.loading {
+    background: transparent url(images/loading.gif) 0 2px no-repeat;
+    color: #333;
+}
