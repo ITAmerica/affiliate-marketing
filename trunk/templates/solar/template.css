@@ -1,0 +1,140 @@
+body {
+	margin: 0;
+	background-image: url(images/background.jpg);
+	background-position: top center;
+	background-repeat: no-repeat;
+}
+td, th {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+}
+a:link, a:active, a:visited {
+    color: #000000;
+    text-decoration: none;
+}
+a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+a.black:link, a.black:active, a.black:visited {
+    color: #000000;
+    text-decoration: underline;
+}
+a.black:hover {
+    color: #000000;
+    text-decoration: none;
+}
+a.white:link, a.white:active, a.white:visited {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+a.white:hover {
+    color: #000000;
+    text-decoration: none;
+}
+td.header {
+    background: #E15100 url(images/header_image.jpg) right top no-repeat;
+    border: 1px solid #FFFFFF;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-topright: 8px;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+}
+td.menubar {
+    padding:5px;
+    background-color:#FFCC33;
+	border:1px solid #FFFFFF;
+	border-bottom:1px solid #666666;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+}
+td.coltitle {
+    padding:5px;
+	padding-left:10px;
+	background-color:#FFCC33;
+	border:1px solid #FFFFFF;
+	border-bottom:1px solid #666666;
+	-moz-border-radius-topleft:8px;
+	-moz-border-radius-topright:8px;
+	-webkit-border-top-left-radius:8px;
+	-webkit-border-top-right-radius:8px;
+}
+td.colcontent {
+    padding:5px;
+    background-color:#F99D16;
+	border:1px solid #FFFFFF;
+	border-top:0px;
+	-moz-border-radius-bottomleft:8px;
+	-moz-border-radius-bottomright:8px;
+	-webkit-border-bottom-left-radius:8px;
+	-webkit-border-bottom-right-radius:8px;
+}
+td.colcontent2 {
+    padding:3px;
+	color:#FFFFFF;
+    background-color:#313B9E;
+	border:1px solid #FFFFFF;
+	border-top:0px;
+	-moz-border-radius-bottomleft:8px;
+	-moz-border-radius-bottomright:8px;
+	-webkit-border-bottom-left-radius:8px;
+	-webkit-border-bottom-right-radius:8px;
+}
+div.adsense {
+    border: 1px solid #fff;
+    padding: 6px 0;
+    background-color: #E15100;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+div.ebay {
+    border: 1px solid #fff;
+    border-top:0;
+    background-color: #fff;
+    padding-bottom: 6px;
+    -moz-border-radius-bottomleft: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+}
+div.copyright {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #333;
+}
+span.menu {
+    font-size:18px;
+	font-weight:bold;
+}
+span.title {
+    font-size:15px;
+	font-weight:bold;
+}
+span.text_white {
+	color:#FFFFFF;
+}
+iframe.content {
+    background-color: transparent;
+    width: 800px;
+    height: 942px;
+    margin: 0;
+    border: 0;
+}
+iframe.ebay_sm {
+    background-color: transparent;
+    width: 160px;
+    height: 600px;
+    overflow: hidden;
+    border: 0;
+    margin: 0;
+}
+
+#logo {
+    background: transparent url(images/logo.png) no-repeat;
+    margin-top: 10px;
+    width: 460px;
+    height: 75px;
+}
