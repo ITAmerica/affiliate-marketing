@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteCond %{HTTP_USER_AGENT} !.*safari.* [NC]
+RewriteCond %{HTTP:Accept-Encoding} gzip
+RewriteCond %{REQUEST_FILENAME}.gz -f
+RewriteRule ^(.*)\.js$   gzip.aux.php?file=$1 [L]
