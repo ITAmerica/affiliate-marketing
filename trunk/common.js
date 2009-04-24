@@ -53,19 +53,33 @@ function generate_ebay (e) {
     document.write(code);
 } // generate_ebay
 
-function settings () {
-    var dwidth  = document.documentElement.clientWidth;
-    var dheight = document.documentElement.clientHeight;
-    var elem    = Ext.get('popup');
-    var eheight = elem.getHeight();
-    var scroll  = Ext.getBody().getScroll();
+function checkAuth () {
+    Ext.Ajax.request({
+        url: _rootpath+'auth.php',
+        method: 'POST',
+        success: function(response, opts) {
+            if (response.responseText == 1) { // logged
+                Ext.get('settings').setStyle({ display:'block' });
+            } else {
+                Ext.get('login').setStyle({ display:'block' });
+            }
+            openPopup();
+        },
+        failure: function(response, opts) {
+            // what to do?
+        }
+    });
+} // checkAuth
 
+function openPopup () {
     if (!Ext.get('overlay')) {
         Ext.DomHelper.append(document.body, {
             id: 'overlay',
             style: 'position:absolute; top:0; left:0; background-color:#fff; display:none;'
         });
+        Ext.fly('overlay').on('click', closePopup);
     }
+
     var el = Ext.get('overlay');
     el.setHeight(Ext.getBody().getHeight());
     el.setWidth(Ext.getBody().getWidth());
@@ -76,18 +90,24 @@ function settings () {
     });
 
 
-    var left = Math.round((dwidth - elem.getWidth()) / 2);
+    var dwidth  = document.documentElement.clientWidth;
+    var dheight = document.documentElement.clientHeight;
+    var popup   = Ext.get('popup');
+    var eheight = popup.getHeight();
+    var scroll  = Ext.getBody().getScroll();
+
+    var left = Math.round((dwidth - popup.getWidth()) / 2);
     var top  = Math.round((dheight - eheight) / 2);
     var top2 = top + scroll.top;
 
-    elem.setLeft(left);
-    elem.setTop(scroll.top-eheight);
-    elem.show();
-    elem.moveTo(left, top2, {
+    popup.setLeft(left);
+    popup.setTop(scroll.top-eheight);
+    popup.show();
+    popup.moveTo(left, top2, {
         easing: 'easeOut',
         duration: 1,
         callback: function() {
-            elem.setStyle({ position:'fixed', top:top+'px', left:left+'px' });
+            popup.setStyle({ position:'fixed', top:top+'px', left:left+'px' });
         }
     });
 } // settings
@@ -110,7 +130,10 @@ function closePopup () {
         easing: 'easeIn',
         duration: 1,
         callback: function() {
-            el.setStyle({ top:'-'+h+'px', left:x+'px' });
+            //el.setStyle({ top:'-'+h+'px', left:x+'px' });
+            el.hide();
+            Ext.get('settings').setStyle({ display:'none' });
+            Ext.get('login').setStyle({ display:'none' });
         }
     });
 } // closePopup
@@ -118,17 +141,21 @@ function closePopup () {
 function login () {
     var el  = Ext.get('login');
     var msg = Ext.get('message');
+    var pwd = Ext.get('password').getValue();
 
-    Ext.getDom('message').innerHTML = 'verifying..';
-    msg.dom.className = 'loading';
+    if (!pwd) {
+        Ext.getDom('message').innerHTML = 'Please enter password';
+        msg.dom.className = 'error';
+        if (!msg.hasActiveFx()) {
+            msg.slideIn('t').pause(5).slideOut('t', { useDisplay:true });
+        }
+        return false;
+    }
 
     el.slideOut('l', {
         easing: 'easeOut',
         useDisplay: true,
         callback: function() {
-            msg.slideIn('l', {
-                easing: 'easeOut'
-            });
             checkLogin();
         }
     });
@@ -137,22 +164,51 @@ function login () {
 function checkLogin () {
     var msg = Ext.get('message');
 
-    msg.pause(2);
-    msg.slideOut('l', {
-        easing: 'easeOut',
-        useDisplay: true,
-        callback: function() {
-            showSetting();
-        }
+    msg.dom.innerHTML = 'verifying..';
+    msg.dom.className = 'loading';
+    msg.slideIn('l', {
+        easing:'easeOut'
+    });
+
+    Ext.Ajax.request({
+        url: _rootpath+'auth.php',
+        method: 'POST',
+        success: function(response, opts) {
+            msg.slideOut('l', {
+                easing: 'easeOut',
+                useDisplay: true,
+                callback: function() {
+                    showSetting(response.responseText);
+                }
+            });
+        },
+        failure: function(response, opts) {
+            // what to do?
+            msg.slideOut('l', {
+                easing: 'easeOut',
+                useDisplay: true
+            });
+        },
+        params: 'password='+Ext.fly('password').getValue()
     });
 } // checkLogin
 
-function showSetting () {
-    var el = Ext.get('settings');
+function showSetting (stt) {
+    var el  = Ext.get('settings');
+    var msg = Ext.get('message');
 
-    el.slideIn('l', {
-        easing: 'easeOut'
-    });
+    if (stt == 1) {
+        el.slideIn('l', {
+            easing: 'easeOut'
+        });
+    } else {
+        Ext.getDom('message').innerHTML = 'Enter wrong password';
+        msg.dom.className = 'error';
+        msg.slideIn('l').pause(5).slideOut('t', { useDisplay:true });
+        Ext.fly('login').slideIn('l', {
+            easing: 'easeOut'
+        });
+    }
 } // showSetting
 
 Ext.onReady(function() {
