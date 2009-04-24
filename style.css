@@ -25,3 +25,7 @@ iframe {
     background: transparent url(images/loading.gif) 0 2px no-repeat;
     color: #333;
 }
+.error {
+    background: transparent url(images/exclamation.png) 0 2px no-repeat;
+    color: #ff0000;
+}
