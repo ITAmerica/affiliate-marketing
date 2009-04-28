@@ -1,0 +1,61 @@
+<div id="popup" style="visibility:hidden;">
+  <div id="message" style="display:none;"></div>
+  <div id="login" style="display:none;">
+    <form method="post" onsubmit="return login()">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td><b>LOGIN</b></td>
+          <td align="right"><span class="click" onclick="closePopup()">Close</span></td>
+        </tr>
+        <tr>
+          <td>Password:</td>
+          <td><input type="password" id="password" /></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="right"><input type="submit" value="Login" /></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div id="settings" style="display:none;">
+    <form id="settingsForm" method="post" onsubmit="return save()">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td><b>SETTINGS</b></td>
+          <td align="right"><span class="click" onclick="closePopup()">Close</span></td>
+        </tr>
+        <tr>
+          <td>Password:</td>
+          <td><input type="password" id="pwd" name="pwd" /></td>
+        </tr>
+        <tr>
+          <td>Sitename:</td>
+          <td><input type="text" id="sitename" name="sitename" /></td>
+        </tr>
+        <tr>
+          <td>Adsense Id:</td>
+          <td><input type="text" id="adsenseId" name="adsenseId" /></td>
+        </tr>
+        <tr>
+          <td>eBay Partner Network Id:</td>
+          <td><input type="text" id="eBayAId" name="eBayAId" /></td>
+        </tr>
+        <tr>
+          <td>Amazon Associate Id:</td>
+          <td><input type="text" id="amazonAId" name="amazonAId" /></td>
+        </tr>
+        <tr>
+          <td>First Keyword:</td>
+          <td><input type="text" id="e_kerword1" name="e_kerword1" /></td>
+        </tr>
+        <tr>
+          <td>Second Keyword:</td>
+          <td><input type="text" id="e_kerword2" name="e_kerword2" /></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="right"><input type="submit" value="Save" /></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>

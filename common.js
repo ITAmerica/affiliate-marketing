@@ -1,4 +1,5 @@
 var _rootpath = '../../';
+var _logged   = false;
 
 function goto (page) {
     var content = Ext.get('content');
@@ -54,16 +55,28 @@ function generate_ebay (e) {
 } // generate_ebay
 
 function checkAuth () {
+    if (Ext.get('popup') == null) {
+        console.log('page not ready');
+        return;
+    }
+    if (_logged) {
+        Ext.get('settings').setStyle({ display:'block' });
+        openPopup();
+        return;
+    }
+
     Ext.Ajax.request({
         url: _rootpath+'auth.php',
         method: 'POST',
         success: function(response, opts) {
-            if (response.responseText == 1) { // logged
-                Ext.get('settings').setStyle({ display:'block' });
-            } else {
+            var stt = response.responseText;
+            if (!stt || stt == '0' || stt === 0) {
                 Ext.get('login').setStyle({ display:'block' });
+                openPopup();
+            } else { // logged
+                showSetting(stt);
+                setTimeout('openPopup()', 1000);
             }
-            openPopup();
         },
         failure: function(response, opts) {
             // what to do?
@@ -159,6 +172,8 @@ function login () {
             checkLogin();
         }
     });
+
+    return false;
 } // login
 
 function checkLogin () {
@@ -197,21 +212,62 @@ function showSetting (stt) {
     var el  = Ext.get('settings');
     var msg = Ext.get('message');
 
-    if (stt == 1) {
-        el.slideIn('l', {
-            easing: 'easeOut'
-        });
-    } else {
+    if (!stt || stt == '0' || stt === 0) {
         Ext.getDom('message').innerHTML = 'Enter wrong password';
+        Ext.fly('password').dom.value   = '';
         msg.dom.className = 'error';
         msg.slideIn('l').pause(5).slideOut('t', { useDisplay:true });
         Ext.fly('login').slideIn('l', {
             easing: 'easeOut'
         });
+    } else {
+        var obj = eval('('+stt+')');
+        _logged = true;
+
+        Ext.each(obj, function(o){
+            Ext.fly(o.k).dom.value = o.v;
+        });
+        el.slideIn('l', {
+            easing: 'easeOut'
+        });
     }
 } // showSetting
+
+function save () {
+    var msg = Ext.get('message');
+    Ext.Ajax.request({
+        url: _rootpath+'save.php',
+        form: 'settingsForm',
+        success: function(response, opts) {
+            var res = response.responseText;
+            if (res) {
+                Ext.getDom('message').innerHTML = 'Settings saved successfully!';
+                msg.dom.className = 'notice';
+                msg.slideIn('l').pause(2).fadeOut({ useDisplay:true });
+
+                var close = this.closePopup;
+                setTimeout(function(){ close(); }, 1000);
+            }
+        }
+    });
+
+    return false;
+} // save
+
+function loadDom () {
+    Ext.Ajax.request({
+        url: _rootpath+'popup.inc.html',
+        success: function(response, opts) {
+            var html = response.responseText;
+            if (html) {
+                Ext.getBody().insertHtml('beforeEnd', html);
+            }
+        }
+    });
+} // loadDom
 
 Ext.onReady(function() {
     var code = '<iframe id="shop" src="http://astore.amazon.com/'+amazonAId+'" frameborder="0" allowtransparency="true" class="content links"></iframe>';
     Ext.fly('content').insertHtml('beforeEnd', code);
+    loadDom();
 });
