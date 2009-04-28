@@ -1,23 +1,23 @@
 /* Affiliate Ids */
-var sitename  = 'Solar Energy';
-var adsenseId = 'pub-8854406757815559';
+var sitename  = '{sitename}';
+var adsenseId = '{adsenseId}';
 var adChannel = '0443638394';
-var eBayAId   = 'ny{ze|yq!';
-var amazonAId = 'solar-system-20';
+var eBayAId   = '{eBayAId}';
+var amazonAId = '{amazonAId}';
 var width     = 800;
 var height    = 900;
 var template  = 'solar';
 
 /* eBay Feed Settings */
-var e_kerword1 = 'solar energy';
-var e_kerword2 = 'solar system';
+var e_kerword1 = '{e_kerword1}';
+var e_kerword2 = '{e_kerword2}';
 
 /* Video */
-var v_keyword = 'solar energy';
+var v_keyword = '{e_kerword1}';
 
 /* NewS Feed Settings */
 var n = {
-    keywords: 'solar energy',
+    keywords: '{e_kerword1}',
     myp: 'homepage',
     id: 4416214844134,
     code: 'html',

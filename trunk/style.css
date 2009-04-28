@@ -25,6 +25,10 @@ iframe {
     background: transparent url(images/loading.gif) 0 2px no-repeat;
     color: #333;
 }
+.notice {
+    background: transparent url(images/tick_circle.png) 0 2px no-repeat;
+    color: #327933;
+}
 .error {
     background: transparent url(images/exclamation.png) 0 2px no-repeat;
     color: #ff0000;
