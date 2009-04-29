@@ -4,13 +4,13 @@ var adsenseId = 'pub-8854406757815559';
 var adChannel = '0443638394';
 var eBayAId   = 'ny{ze|yq!';
 var amazonAId = 'solar-system-20';
-var width     = 800;
-var height    = 900;
+var width     = 746;
+var height    = 950;
 var template  = 'solar';
 
 /* eBay Feed Settings */
 var e_kerword1 = 'solar energy';
-var e_kerword2 = 'solar system';
+var e_kerword2 = 'solar panel';
 
 /* Video */
 var v_keyword = 'solar energy';
