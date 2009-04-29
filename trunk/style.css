@@ -15,11 +15,19 @@
     -webkit-border-radius: 8px;
 }
 
+form {
+    margin: 0;
+}
 iframe {
     border: 0;
 }
 .click {
     cursor: pointer;
+}
+.close {
+    padding-left: 16px;
+    font-size: 10px;
+    background: transparent url(images/cross_small.png) 0 -2px no-repeat;
 }
 .loading {
     background: transparent url(images/loading.gif) 0 2px no-repeat;

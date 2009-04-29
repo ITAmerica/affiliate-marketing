@@ -4,8 +4,8 @@ var adsenseId = '{adsenseId}';
 var adChannel = '0443638394';
 var eBayAId   = '{eBayAId}';
 var amazonAId = '{amazonAId}';
-var width     = 800;
-var height    = 900;
+var width     = 746;
+var height    = 950;
 var template  = 'solar';
 
 /* eBay Feed Settings */

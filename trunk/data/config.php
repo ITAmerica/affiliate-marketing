@@ -1,1 +1,1 @@
-<?php $config = array('pwd'=>'abc123','sitename'=>'Solar Energy','adsenseId'=>'pub-8854406757815559','eBayAId'=>'ny{ze|yq!','amazonAId'=>'solar-system-20','e_kerword1'=>'solar energy','e_kerword2'=>'solar system'); ?>
+<?php $config = array('pwd'=>'abc123','sitename'=>'Solar Energy','adsenseId'=>'pub-8854406757815559','eBayAId'=>'ny{ze|yq!','amazonAId'=>'solar-system-20','e_kerword1'=>'solar energy','e_kerword2'=>'solar panel'); ?>

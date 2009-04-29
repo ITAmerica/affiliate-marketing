@@ -35,7 +35,7 @@
         'tlfcolor' => '000000',
         'toolid'   => 10004,
         'track'    => 5336046499,
-        'width'    => 748
+        'width'    => 746
     );
     $params  = array_merge($setting, $_GET);
     $request = 'http://lapi.ebay.com/ws/eBayISAPI.dll?EKServer';
