@@ -7,9 +7,11 @@
 <title>The Best Solar Equipment</title>
 <link href="../../style.css" rel="stylesheet" type="text/css" />
 <link href="template.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../../ext-core.js"></script>
+<script type="text/javascript" src="../../js/ext-core.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/fancyzoom/fancyzoom.min.js"></script>
 <script type="text/javascript" src="../../data/config.js"></script>
-<script type="text/javascript" src="../../common.js"></script>
+<script type="text/javascript" src="../../common-src.js"></script>
 </head>
 <body>
 <table border="0" align="center" cellpadding="0" cellspacing="10">
@@ -104,8 +106,8 @@ var amzn_wdgt={widget:'Search'};
 amzn_wdgt.tag=amazonAId;
 amzn_wdgt.columns='3';
 amzn_wdgt.rows='2';
-amzn_wdgt.defaultSearchTerm=e_kerword1;
-amzn_wdgt.searchIndex='Automotive';
+amzn_wdgt.defaultSearchTerm=e_kerword2;
+amzn_wdgt.searchIndex=searchIdx;
 amzn_wdgt.width='380';
 amzn_wdgt.showImage='True';
 amzn_wdgt.showPrice='True';
@@ -134,9 +136,95 @@ amzn_wdgt.marketPlace='US';
         </td>
       </tr>
       <tr>
-        <td id="content" style="padding-top:10px">
-
+        <td id="content" style="padding-top:10px;"><div style="position:relative;">
+          <div id="listing">
+<div id="itemsTitleTpl" class="hide">
+  <div class="itemsTitle">{title}</div>
+</div>
+<div id="itemsNavigationTpl" class="hide">
+  <div class="recordset left">Showing <b><span class="showing">{recordset}</span></b> of <b>{total}</b> results</div>
+  <div class="paging right">{pagination}</div>
+  <div class="clear" style="height:5px;"></div>
+</div>
+<div id="itemsListingTpl" class="hide">
+  <div class="itemDesc left">
+    <div class="itemTitle" title="{title}" onclick="viewDetail('{asin}')">{stitle}</div>
+    <div class="itemSummary">{summary}</div>
+  </div>
+  <div class="itemImage right" style="background-image:url({thumbnail})" onclick="viewDetail('{asin}')"></div>
+  <div class="clear" style="height:2px;"></div>
+  <div class="but_detail left" onclick="viewDetail('{asin}')">{details}</div>
+  <div class="but_addcart left" onclick="addtocart('{asin}')">{addCart}</div>
+  <div class="itemPrice right">{price}</div>
+</div>
+          </div>
+          <div id="details" class="abs" style="visibility:hidden;">
+            <div class="goback" onclick="switchRight()">Back</div>
+<div id="detailsTpl" class="hide clear">
+  <div class="mainTitle">Product Details</div>
+  <div class="body" style="padding:14px 24px;">
+    <table border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>
+          <div class="image" style="background-image:url({img});"></div>
+          <div class="imagesets">{imageSets}</div>
         </td>
+        <td>
+          <div>
+            <h2>{title}<div class="by">{by}</div></h2>
+          </div>
+          <table border="0" cellpadding="2" cellspacing="0" style="margin:10px 0;">
+            <tr class="detailListPrice">
+              <td valign="top" class="label"><span>List Price: </span></td>
+              <td valign="top"><span class="amount listprice">{listprice}</span></td>
+            </tr>
+            <tr class="detailOfferPrice">
+              <td valign="top" class="label"><span>Price: </span></td>
+              <td valign="top">
+                <span class="amount">{offerprice}</span>
+                <span class="saver">{saver}</span>
+              </td>
+            </tr>
+          </table>
+
+          <form id="addToCartForm" action="" method="post" onsubmit="return addtocart('{asin}')">
+            <input type="image" height="27" width="159" border="0" id="buybutton" name="pngImage" alt="Add to cart"
+             src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/add-to-cart-yellow._V46788356_.png" />
+          </form>
+
+          <div class="availability"><b>Availability: </b><span>{availability}</span></div>
+          <div class="avgReviewStars" style="background-image:url(http://images.amazon.com/images/G/01/associates/network/star{avgRating}_tpng.png);">
+            Average customer review:
+          </div>
+        </td>
+      </tr>
+    </table>
+    <div class="productDescription">
+      <h2>Product Description</h2>
+      <p>{description}</p>
+    </div>
+    <div class="productDetails">
+      <hr />
+      <h2>Product Details</h2>
+      <ul>{details}</ul>
+      <h3>Features</h3>
+      <ul>{features}</ul>
+    </div>
+
+    <div class="customerReviews">
+      <hr />
+      <h2>Customer Reviews</h2>
+      <div id="customerReviews"><div class="customerReview">
+        <div class="reviewStars" style="background-image:url(http://images.amazon.com/images/G/01/associates/network/star{reviewRank}_tpng.png);">
+          <span class="reviewtitle">{reviewSummary}</span>
+        </div>
+        <div class="clear">{review}</div>
+      </div></div>{customerReviews}
+    </div>
+  </div>
+</div>
+          </div>
+        </div></td>
       </tr>
     </table></td>
     <td width="160" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -173,6 +261,9 @@ generate_ebay(params);
     </table></td>
   </tr>
 </table>
-<div class="copyright"><span class="click" onclick="checkAuth()">&copy;</span> 2008 <script>document.write(sitename)</script>. All rights reserved.</div>
+<div class="copyright">
+  <span class="click" onclick="checkAuth()">&copy;</span>
+  <script>document.write(getYear()+' '+sitename);</script>. All rights reserved.
+</div>
 </body>
 </html>

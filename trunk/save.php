@@ -3,11 +3,14 @@
   $jsfile  = 'data/config.js';
   include($phpfile);
 
+  if (isset($config['demo'])) { // don't perform actual save in demo mode
+      exit('1');
+  }
+
   $config = array_merge($config, $_POST); // merge settings
   $phpStr = '';
   $jsStr  = file_get_contents('config.inc.js', true);
   $jsKey  = $jsValue = array();
-
 
   foreach ($config as $k=>$v) {
       $v       = str_replace("'", "\'", $v);
