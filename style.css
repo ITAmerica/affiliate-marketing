@@ -21,8 +21,26 @@ form {
 iframe {
     border: 0;
 }
+.abs {
+    position: absolute;
+}
+.center {
+    text-align: center;
+}
 .click {
     cursor: pointer;
+}
+.clear {
+    clear: both;
+}
+.hide {
+    display: none;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
 }
 .close {
     padding-left: 16px;
@@ -40,4 +58,211 @@ iframe {
 .error {
     background: transparent url(images/exclamation.png) 0 2px no-repeat;
     color: #ff0000;
+}
+
+hr {
+    background-color: #E15100;
+    border: 0 none;
+    color: #E15100;
+    height: 1px;
+    margin: 6px 0 12px;
+    width: 100%;
+}
+h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+h3 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+div.avgReviewStars, div.reviewStars {
+    padding-right: 62px;
+    float: left;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: right 2px;
+}
+div.goback {
+    background: transparent url(images/back.png) no-repeat;
+    padding-left: 38px;
+    height: 32px;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 26px;
+    float: right;
+    cursor: pointer;
+}
+
+#listing, #details {
+    float: left;
+}
+#content div.itemsBody {
+    width: 666px;
+    margin: 0 auto;
+}
+#content div.itemBlk {
+    margin: 10px 8px 10px 8px;
+}
+#content div.itemDesc {
+    width: 150px;
+    height: 162px;
+    padding: 3px 3px 0 0;
+}
+#content div.itemTitle {
+    font-size: 12px;
+    font-weight: bold;
+    color: #606060;
+    cursor: pointer;
+}
+#content div.itemSummary {
+    font-size: 11px;
+    color: #353535;
+    margin-top: 8px;
+}
+#content div.itemImage {
+    width: 162px;
+    height: 162px;
+    border: 1px solid #bebebe;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: 1px 1px;
+    cursor: pointer;
+}
+#content div.but_detail {
+    padding: 0 2px 0 18px;
+    font-size: 11px;
+    color: #343434;
+    font-weight: bold;
+    line-height: 16px;
+    background: transparent url(images/blog.png) no-repeat;
+    margin: 2px;
+    cursor: pointer;
+}
+#content div.but_addcart {
+    padding: 0 2px 0 20px;
+    font-size: 11px;
+    color: #343434;
+    font-weight: bold;
+    line-height: 16px;
+    background: transparent url(images/basket_put.png) no-repeat;
+    margin: 2px 2px 2px 8px;
+    cursor: pointer;
+}
+#content div.itemPrice {
+    width: 160px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #BC383A;
+    text-align: center;
+    padding: 2px;
+    background-color: #e7e5d7;
+    border-top: 1px solid #BEBEBE;
+}
+#content span.currentPage {
+    padding: 0 4px;
+    font-weight: bold;
+    cursor: default;
+}
+#content span.listprice {
+    font-weight: bold;
+    text-decoration: line-through;
+}
+#content span.ourprice {
+    font-weight: bold;
+    color: #891f1f;
+}
+#content div.itemsTitle {
+    font-size: 12pt;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+#content span.page {
+    padding: 0 5px;
+    cursor: pointer;
+}
+#content span.page:hover {
+    background-color: #fff;
+}
+
+#details div.mainTitle {
+    background-color: #F2F2F2;
+    padding: 10px 24px;
+    vertical-align: middle;
+    font-size: 12pt;
+    font-weight: bold;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+}
+#details div.body {
+    background-color: #fff;
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+}
+#details, div {
+    font-size: 9pt;
+    line-height: 12pt;
+}
+#details div.image {
+    width: 210px;
+    height: 210px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    padding: 5px 20px 5px 5px;
+}
+#details div.imageset {
+    background: #fff center center no-repeat;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #999;
+    margin: 2px;
+    float: left;
+}
+#details div.imageset:hover {
+    border: 1px solid #990000;
+}
+#details div.by {
+    font-size: 9pt;
+    font-weight: normal;
+}
+#details .label {
+    font-size: 10.5pt;
+    font-weight: bold;
+    text-align: right;
+    white-space: nowrap;
+}
+#details .amount {
+    font-size: 10.5pt;
+    font-weight: bold;
+}
+#details .listprice {
+    font-weight: normal;
+    text-decoration: line-through;
+}
+#details .saver {
+    font-size: 9pt;
+}
+#details .availability {
+    margin-bottom: 10px;
+}
+#addToCartForm {
+    margin-bottom: 20px;
+}
+#details div.productDescription {
+    padding-top: 20px;
+}
+#details span.reviewtitle {
+    font-size: 12px;
+    font-weight: bold;
+}
+#details div.customerReview {
+    margin: 18px 0;
 }
