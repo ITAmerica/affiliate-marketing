@@ -87,6 +87,16 @@ div.avgReviewStars, div.reviewStars {
     background-repeat: no-repeat;
     background-position: right 2px;
 }
+div.closecart {
+    background: transparent url(images/up.png) no-repeat;
+    padding-left: 38px;
+    height: 32px;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 26px;
+    float: right;
+    cursor: pointer;
+}
 div.goback {
     background: transparent url(images/back.png) no-repeat;
     padding-left: 38px;
@@ -98,6 +108,36 @@ div.goback {
     cursor: pointer;
 }
 
+#shoppingcart {
+    font-family: 'Verdana',sans-serif;
+}
+#shoppingcart table.cartTable {
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    width: 100%;
+}
+#shoppingcart td.cartColumn {
+    background-color: #DEDEDC;
+    font-weight: bold;
+    font-size: 9pt;
+    padding: 3px;
+}
+#shoppingcart td.item {
+    padding: 5px;
+}
+#shoppingcart div.subtotal {
+    font-weight: bold;
+    text-align: right;
+    margin: 5px;
+}
+#shoppingcart div.makeChange {
+    margin: 15px 5px;
+    text-align: right;
+}
+#shoppingcart div.cartbuttons {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #000;
+}
 #listing, #details {
     float: left;
 }
@@ -189,7 +229,7 @@ div.goback {
     background-color: #fff;
 }
 
-#details div.mainTitle {
+#shoppingcart div.mainTitle, #details div.mainTitle {
     background-color: #F2F2F2;
     padding: 10px 24px;
     vertical-align: middle;
