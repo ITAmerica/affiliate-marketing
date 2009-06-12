@@ -10,7 +10,7 @@
 //      'Availability'  => 'Available',
       'ItemPage'      => $page,
       'Condition'     => 'New',
-      'ResponseGroup' => 'OfferSummary,ItemAttributes,SalesRank,Images',
+      'ResponseGroup' => 'OfferSummary,ItemAttributes,SalesRank,Images,OfferListings',
       'SearchIndex'   => $searchIndex
   );
   $get = $aaws->item_search($keywords, $opt);
@@ -41,9 +41,15 @@
       } else {
           $d_lowest = $i_discount = '';
       }
+      if (is_object($item->Offers->Offer->OfferListing)) {
+          $offerId = (string) $item->Offers->Offer->OfferListing->OfferListingId;
+      } else {
+          $offerId = '';
+      }
 
       $list[$i] = array(
           'ASIN'           => (string) $item->ASIN,
+          'OfferListingId' => $offerId,
           'SalesRank'      => (int) $item->SalesRank,
           'Image'          => (string) $item->MediumImage->URL,
           'Brand'          => (string) $item->ItemAttributes->Brand,

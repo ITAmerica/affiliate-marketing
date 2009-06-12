@@ -24,6 +24,9 @@ iframe {
 .abs {
     position: absolute;
 }
+.fixed {
+    position: fixed;
+}
 .center {
     text-align: center;
 }
@@ -89,27 +92,32 @@ div.avgReviewStars, div.reviewStars {
 }
 div.closecart {
     background: transparent url(images/up.png) no-repeat;
-    padding-left: 38px;
+    padding: 9px 9px 0 38px;
     height: 32px;
     font-size: 18px;
     font-weight: bold;
-    line-height: 26px;
     float: right;
     cursor: pointer;
 }
 div.goback {
     background: transparent url(images/back.png) no-repeat;
     padding-left: 38px;
+    padding: 6px 9px 0 38px;
     height: 32px;
     font-size: 18px;
     font-weight: bold;
-    line-height: 26px;
     float: right;
     cursor: pointer;
 }
 
 #shoppingcart {
     font-family: 'Verdana',sans-serif;
+    border: 1px solid #ccc;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+     z-index: 20;
 }
 #shoppingcart table.cartTable {
     border-top: 1px solid #000;
