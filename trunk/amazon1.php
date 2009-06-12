@@ -10,7 +10,7 @@
   $aaws = new AmazonAAWS('AKIAITRZR5LXLG4QILTA', '0Z/hDsa8nnvqP/wa+/ylHi5GI0NemY5lGf6X9J+7', 'ipowerhostcou-20');
   $opt  = array(
       'Condition'     => 'New',
-      'ResponseGroup' => 'EditorialReview,OfferSummary,ItemAttributes,SalesRank,Images,Offers,Reviews'
+      'ResponseGroup' => 'EditorialReview,OfferSummary,ItemAttributes,SalesRank,Images,OfferListings,Offers,Reviews'
   );
   $get = $aaws->item_lookup($item_id, $opt);
   $i   = 0;
@@ -19,7 +19,7 @@
       $lprice = (int) $item->ItemAttributes->ListPrice->Amount;
       $lowest = (int) $item->OfferSummary->LowestNewPrice->Amount;
 
-      if (!$lowest && !$price) {
+      if (!$lowest && !$lprice) {
           continue;
       }
 
@@ -113,6 +113,7 @@
 
       $details = array(
           'ASIN'            => (string) $item->ASIN,
+          'OfferListingId'  => (string) $item->Offers->Offer->OfferListing->OfferListingId,
           'SalesRank'       => $salesrank,
           'Image'           => (string) $item->MediumImage->URL,
           'ImageSets'       => $imagesets,

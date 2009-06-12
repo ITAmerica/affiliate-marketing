@@ -137,9 +137,9 @@ amzn_wdgt.marketPlace='US';
       </tr>
       <tr>
         <td id="content" style="padding-top:10px;"><div style="position:relative;">
-          <div id="shoppingcart" class="abs" style="visibility:;">
-            <div style="width:698px;">
-              <div class="closecart" onclick="javascript:;">Close</div>
+          <div id="shoppingcart" class="fixed" style="top:-300px;">
+            <div style="width:742px;">
+              <div class="closecart" onclick="closeCart();">Close</div>
               <div class="mainTitle">Shopping Cart</div>
               <div class="body" style="padding:14px 24px; background-color:#fff;">
                 <div style="font-size:9pt; font-weight:500; line-height:12pt; margin:12px 0;">
@@ -174,7 +174,8 @@ amzn_wdgt.marketPlace='US';
                 </div>
                 <div class="cartbuttons">
                   <div class="left">
-                    <img height="22" width="119" alt="Continue shopping" src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/continue-shopping-md-sec._V46787018_.png" class="click" />
+                    <img height="22" width="119" alt="Continue shopping" class="click" onclick="closeCart()"
+                     src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/continue-shopping-md-sec._V46787018_.png" />
                   </div>
                   <div class="right">
 <form action="/wwedealercom-20/cart/checkout" name="checkoutform" method="post">
@@ -207,7 +208,7 @@ amzn_wdgt.marketPlace='US';
   <div class="itemImage right" style="background-image:url({thumbnail})" onclick="viewDetail('{asin}')"></div>
   <div class="clear" style="height:2px;"></div>
   <div class="but_detail left" onclick="viewDetail('{asin}')">{details}</div>
-  <div class="but_addcart left" onclick="addtocart('{asin}')">{addCart}</div>
+  <div class="but_addcart left" onclick="addtocart('{asin}','{offerId}')">{addCart}</div>
   <div class="itemPrice right">{price}</div>
 </div>
           </div>
