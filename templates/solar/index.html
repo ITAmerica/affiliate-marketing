@@ -155,18 +155,19 @@ amzn_wdgt.marketPlace='US';
                       <td class="cartColumn" align="right">Price</td>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
+                  <tbody id="cartItems">
+                    <tr id="{itemId}">
                       <td align="center" class="item">
-                        <img height="17" width="47" alt="Delete" src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/delete-sm-sec._V46786939_.png" class="click" />
+                        <img height="17" width="47" alt="Delete" class="click" onclick="deleteItem('{itemId}')"
+                         src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/delete-sm-sec._V46786939_.png" />
                       </td>
-                      <td class="item">Yellow Wrestling Spandex Briefs Shorts</td>
-                      <td align="right" class="item"><input type="text" id="qty1" value="1" style="text-align:right; width:35px;" /></td>
-                      <td align="right" class="item">$19.95</td>
+                      <td class="item"><div onclick="viewDetail('{asin}')">{title}</div></td>
+                      <td align="right" class="item">{qty}</td>
+                      <td align="right" class="item">{total}</td>
                     </tr>
                   </tbody>
                 </table>
-                <div class="subtotal">Subtotal: $39.90</div>
+                <div class="subtotal">Subtotal: <span id="subtotal"></span></div>
                 <div class="makeChange">
                   Make any changes above?
                   <input type="image" height="17" width="94" align="absmiddle" value="Go" alt="Update subtotal"

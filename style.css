@@ -109,6 +109,10 @@ div.goback {
     float: right;
     cursor: pointer;
 }
+input.itemQty {
+    text-align: right;
+    width: 35px;
+}
 
 #shoppingcart {
     font-family: 'Verdana',sans-serif;
