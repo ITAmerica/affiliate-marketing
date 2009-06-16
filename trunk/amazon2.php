@@ -15,35 +15,47 @@
       $opt = null;
   }
 
+  /*$opt  = array(
+      'ResponseGroup' => 'CartSimilarities'
+  );*/
+
   $aaws = new AmazonAAWS('AKIAITRZR5LXLG4QILTA', '0Z/hDsa8nnvqP/wa+/ylHi5GI0NemY5lGf6X9J+7', 'ipowerhostcou-20');
 
-  if (empty($_SESSION['cartId'])) {
-      /*$opt  = array(
-          'Condition'     => 'New',
-          'ResponseGroup' => 'EditorialReview,OfferSummary,ItemAttributes,SalesRank,Images,Offers,Reviews'
-      );*/
-      $get  = $aaws->cart_create($offer_id, $opt);
-      $cart = $get->body->Cart;
-
+  if (empty($_SESSION['cartId'])) { // create new cart
+      $get = $aaws->cart_create($offer_id, $opt);
       $_SESSION['cartId'] = (string) $cart->CartId;
       $_SESSION['hmac']   = (string) $cart->HMAC;
-
-      $subtotal = (int) $cart->SubTotal->Amount;
-      $price    = (int) $cart->CartItems->CartItem->Price->Amount;
-
-      $json = array(
-          'status'   => 1,
-          'currency' => (string) $cart->SubTotal->CurrencyCode,
-          'subtotal' => number_format($subtotal/100, 2),
-          'title'    => (string) $cart->CartItems->CartItem->Title,
-          'qty'      => (int) $cart->CartItems->CartItem->Quantity,
-          'price'    => number_format($price/100, 2)
-      );
+  } else {
+      $get = $aaws->cart_add($_SESSION['cartId'], $_SESSION['hmac'], $offer_id, $opt);
   }
 
-  $get = $aaws->cart_add($_SESSION['cartId'], $_SESSION['hmac'], $offer_id, $opt);
+  $cart = $get->body->Cart;
 
-  //echo json_encode($json);
-  //exit;
+  $subtotal = (int) $cart->SubTotal->Amount;
+  $json = array(
+      'status'   => 1,
+      'currency' => (string) $cart->SubTotal->CurrencyCode,
+      'subtotal' => number_format($subtotal/100, 2),
+  );
+
+  if (is_object($cart->CartItems->CartItem)) {
+      foreach ($cart->CartItems->CartItem as $item) {
+          $price = (int) $item->Price->Amount;
+          $total = (int) $item->ItemTotal->Amount;
+
+          $items[] = array(
+              'itemId' => (string) $item->CartItemId,
+              'asin'   => (string) $item->ASIN,
+              'title'  => (string) $item->Title,
+              'qty'    => (string) $item->Quantity,
+              'price'  => number_format($price/100, 2),
+              'total'  => number_format($total/100, 2)
+          );
+      }
+      $json['items'] = $items;
+  }
+
+  echo json_encode($json);
+  exit;
 ?>
-<pre><?php print_r($get); ?></pre>
+<pre><?php print_r($get->body); ?></pre>
