@@ -22,14 +22,17 @@
   $aaws = new AmazonAAWS('AKIAITRZR5LXLG4QILTA', '0Z/hDsa8nnvqP/wa+/ylHi5GI0NemY5lGf6X9J+7', 'ipowerhostcou-20');
 
   if (empty($_SESSION['cartId'])) { // create new cart
-      $get = $aaws->cart_create($offer_id, $opt);
+      $get  = $aaws->cart_create($offer_id, $opt);
+      $cart = $get->body->Cart;
       $_SESSION['cartId'] = (string) $cart->CartId;
       $_SESSION['hmac']   = (string) $cart->HMAC;
+  } else if (isset($_POST['itemId'])) {
+      $get  = $aaws->cart_modify($_SESSION['cartId'], $_SESSION['hmac'], $offer_id, $opt);
+      $cart = $get->body->Cart;
   } else {
-      $get = $aaws->cart_add($_SESSION['cartId'], $_SESSION['hmac'], $offer_id, $opt);
+      $get  = $aaws->cart_add($_SESSION['cartId'], $_SESSION['hmac'], $offer_id, $opt);
+      $cart = $get->body->Cart;
   }
-
-  $cart = $get->body->Cart;
 
   $subtotal = (int) $cart->SubTotal->Amount;
   $json = array(

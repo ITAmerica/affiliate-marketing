@@ -141,7 +141,10 @@ amzn_wdgt.marketPlace='US';
             <div style="width:742px;">
               <div class="closecart" onclick="closeCart();">Close</div>
               <div class="mainTitle">Shopping Cart</div>
-              <div class="body" style="padding:14px 24px; background-color:#fff;">
+              <div class="body" style="padding:0 24px 14px 24px; background-color:#fff;">
+<div id="cartLoading" style="padding-top:6px;">
+  <div class="cartLoading" style="background:url(../../images/loading.gif) no-repeat; width:60px; padding-left:20px; margin:0 auto;">loading..</div>
+</div>
                 <div style="font-size:9pt; font-weight:500; line-height:12pt; margin:12px 0;">
                  When you are ready to check out, please click the "Proceed to Checkout" button at the bottom of this page.
                  You will be taken to the Amazon.com cart page to securely complete your transaction.
@@ -168,7 +171,7 @@ amzn_wdgt.marketPlace='US';
                   </tbody>
                 </table>
                 <div class="subtotal">Subtotal: <span id="subtotal"></span></div>
-                <div class="makeChange">
+                <div class="cartAction makeChange">
                   Make any changes above?
                   <input type="image" height="17" width="94" align="absmiddle" value="Go" alt="Update subtotal"
                    src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/update-subtotal-sm-sec._V46788243_.png" />
@@ -178,7 +181,7 @@ amzn_wdgt.marketPlace='US';
                     <img height="22" width="119" alt="Continue shopping" class="click" onclick="closeCart()"
                      src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/continue-shopping-md-sec._V46787018_.png" />
                   </div>
-                  <div class="right">
+                  <div class="cartAction right">
 <form action="/wwedealercom-20/cart/checkout" name="checkoutform" method="post">
   <input type="hidden" value="192-8582850-2633001" name="cart-id" />
   <input type="hidden" value="ygqoP1VWWtTeVI9xKE0597x/3Es=" name="hmac" />
