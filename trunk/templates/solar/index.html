@@ -142,8 +142,8 @@ amzn_wdgt.marketPlace='US';
               <div class="closecart" onclick="closeCart();">Close</div>
               <div class="mainTitle">Shopping Cart</div>
               <div class="body" style="padding:0 24px 14px 24px; background-color:#fff;">
-<div id="cartLoading" style="padding-top:6px;">
-  <div class="cartLoading" style="background:url(../../images/loading.gif) no-repeat; width:60px; padding-left:20px; margin:0 auto;">loading..</div>
+<div id="cartLoading" style="padding-top:6px; visibility:hidden;">
+  <div class="cartLoading" style="background:url(../../images/loading.gif) no-repeat; width:60px; padding-left:20px; margin:0 auto;">updating..</div>
 </div>
                 <div style="font-size:9pt; font-weight:500; line-height:12pt; margin:12px 0;">
                  When you are ready to check out, please click the "Proceed to Checkout" button at the bottom of this page.
@@ -161,19 +161,19 @@ amzn_wdgt.marketPlace='US';
                   <tbody id="cartItems">
                     <tr id="{itemId}">
                       <td align="center" class="item">
-                        <img height="17" width="47" alt="Delete" class="click" onclick="deleteItem('{itemId}')"
+                        <img height="17" width="47" alt="Delete" class="click" onclick="updateItem('{itemId}')"
                          src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/delete-sm-sec._V46786939_.png" />
                       </td>
                       <td class="item"><div onclick="viewDetail('{asin}')">{title}</div></td>
                       <td align="right" class="item">{qty}</td>
-                      <td align="right" class="item">{total}</td>
+                      <td align="right" class="item"><span class="total">{total}</span></td>
                     </tr>
                   </tbody>
                 </table>
-                <div class="subtotal">Subtotal: <span id="subtotal"></span></div>
+                <div class="subtotal">Subtotal: <span id="subtotal">0.00</span></div>
                 <div class="cartAction makeChange">
                   Make any changes above?
-                  <input type="image" height="17" width="94" align="absmiddle" value="Go" alt="Update subtotal"
+                  <input type="image" height="17" width="94" align="absmiddle" value="Go" alt="Update subtotal" onclick="updateItem()"
                    src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/update-subtotal-sm-sec._V46788243_.png" />
                 </div>
                 <div class="cartbuttons">
@@ -182,10 +182,7 @@ amzn_wdgt.marketPlace='US';
                      src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/continue-shopping-md-sec._V46787018_.png" />
                   </div>
                   <div class="cartAction right">
-<form action="/wwedealercom-20/cart/checkout" name="checkoutform" method="post">
-  <input type="hidden" value="192-8582850-2633001" name="cart-id" />
-  <input type="hidden" value="ygqoP1VWWtTeVI9xKE0597x/3Es=" name="hmac" />
-  <input type="hidden" value="182-1816632-7598239" name="sessionid" />
+<form action="" id="checkoutform" name="checkoutform" method="post">
   <input type="image" id="proceedToCheckoutBtn" name="pngImage" height="27" width="153" alt="Proceed to checkout"
    src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/proceed-to-checkout-yellow._V46787518_.png" />
 </form>
@@ -245,10 +242,8 @@ amzn_wdgt.marketPlace='US';
             </tr>
           </table>
 
-          <form id="addToCartForm" action="" method="post" onsubmit="return addtocart('{asin}')">
-            <input type="image" height="27" width="159" border="0" id="buybutton" name="pngImage" alt="Add to cart"
-             src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/add-to-cart-yellow._V46788356_.png" />
-          </form>
+          <input type="image" height="27" width="159" border="0" id="buybutton" name="pngImage" onclick="addtocart('{asin}', '{offerId}')"
+           src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/add-to-cart-yellow._V46788356_.png" alt="Add to cart" />
 
           <div class="availability"><b>Availability: </b><span>{availability}</span></div>
           <div class="avgReviewStars" style="background-image:url(http://images.amazon.com/images/G/01/associates/network/star{avgRating}_tpng.png);">
