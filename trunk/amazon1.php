@@ -41,6 +41,7 @@
           $d_lowest = $i_discount = '';
       }
 
+      $itemOfferId = '';
       $averagePR   = (float) $item->CustomerReviews->AverageRating;
       $description = '';
       $imagesets   = $features  = $detail = $customerReviews = array();
@@ -82,6 +83,9 @@
       if ($numItems) {
           $detail[] = 'Number of items: '.$numItems;
       }
+      if (is_object($item->Offers->Offer->OfferListing)) {
+          $description = (string) $item->Offers->Offer->OfferListing->OfferListingId;
+      }
       if (is_object($item->EditorialReviews->EditorialReview)) {
           $description = (string) $item->EditorialReviews->EditorialReview->Content;
       }
@@ -113,7 +117,7 @@
 
       $details = array(
           'ASIN'            => (string) $item->ASIN,
-          'OfferListingId'  => (string) $item->Offers->Offer->OfferListing->OfferListingId,
+          'OfferListingId'  => $itemOfferId,
           'SalesRank'       => $salesrank,
           'Image'           => (string) $item->MediumImage->URL,
           'ImageSets'       => $imagesets,
