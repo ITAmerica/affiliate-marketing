@@ -21,11 +21,19 @@
 
   $aaws = new AmazonAAWS('AKIAITRZR5LXLG4QILTA', '0Z/hDsa8nnvqP/wa+/ylHi5GI0NemY5lGf6X9J+7', 'ipowerhostcou-20');
 
-  if (empty($_SESSION['cartId'])) { // create new cart
+  if (empty($_SESSION['cartId'])) { // no session found
+      if (isset($_POST['getcart'])) { // no session how to get cart?
+          exit('0');
+      }
+
+      // create new cart
       $get  = $aaws->cart_create($offer_id, $opt);
       $cart = $get->body->Cart;
       $_SESSION['cartId'] = (string) $cart->CartId;
       $_SESSION['hmac']   = (string) $cart->HMAC;
+  } else if (isset($_POST['getcart'])) { // retrieve items from existing cart
+      $get  = $aaws->cart_get($_SESSION['cartId'], $_SESSION['hmac'], '');
+      $cart = $get->body->Cart;
   } else if (isset($_POST['items']) && is_array($_POST['items'])) { // update items
       $get  = $aaws->cart_modify($_SESSION['cartId'], $_SESSION['hmac'], $_POST['items']);
       $cart = $get->body->Cart;

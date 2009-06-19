@@ -114,6 +114,11 @@ input.itemQty {
     width: 35px;
 }
 
+#loader {
+    padding: 2px 2px 2px 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
 #shoppingcart {
     font-family: 'Verdana',sans-serif;
     border: 1px solid #ccc;
@@ -151,7 +156,7 @@ input.itemQty {
     border-bottom: 1px solid #000;
 }
 #listing, #details {
-    float: left;
+
 }
 #content div.itemsBody {
     width: 666px;

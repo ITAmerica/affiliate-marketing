@@ -9,18 +9,23 @@ var _puchaseURL = '';
 function goto (page) {
     var content = Ext.get('content');
 
-    Ext.select('.links').each(function(e){
-        e.setStyle({ display:'none' });
-    });
+    if (page == 5) { // open cart no need to hide current page
+        openCart();
+    } else {
+        Ext.select('.links').each(function(e){
+            e.setStyle({ display:'none' });
+        });
+    }
 
     if (page == 1) {
-        showPage('shop');
+        Ext.select('div.shop', false, 'content').setStyle({ display:'block' });;
     } else if (page == 2) {
         if (Ext.fly('auction') == null) {
             var code = '<iframe id="auction" src="'+_rootpath+'ebay.php?ai='+eBayAId+'&query='+e_kerword1+'&eksize=1&num=12&minprice=100"' +
                        ' frameborder="0" allowtransparency="true" class="content links" style="display:none;"></iframe>';
             content.insertHtml('beforeEnd', code);
         }
+        Ext.select('div.shop', false, 'content').setStyle({ display:'none' });
         showPage('auction');
     } else if (page == 3) {
         if (!Ext.fly('news')) {
@@ -29,20 +34,15 @@ function goto (page) {
                        ' frameborder="0" allowtransparency="true" class="content links" style="display:none;"></iframe>';
             content.insertHtml('beforeEnd', code);
         }
+        Ext.select('div.shop', false, 'content').setStyle({ display:'none' });
         showPage('news');
     } else if (page == 4) {
         if (!Ext.fly('video')) {
             var code = '<embed id="video" class="links" src="http://www.blinkx.com/w?g_sApiQuery=%2Fapi3%2Fstart%2Ephp%3Faction%3Dquery%26databasematch%3Dmedia%26totalresults%3Dtrue%26text%3D'+v_keyword+'%26start%3D1%26maxresults%3D36%26sortby%3Drelevance%26removedredatabases%3DPodcast%26fieldtext%3D%26clientregion%3DHI%26characters%3D10000%26clientip%3D118%2E100%2E142%2E105g%5FiQueryOffset%3D0&g_StageWidth='+width+'&g_StageHeight='+height+'&g_ApiServer=www.blinkx.com&g_sImgServer=http://cdn-99.blinkx.com/store" width="'+width+'" height="'+height+'" quality="high" bgcolor="#000000" name="newwall" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />';
            content.insertHtml('beforeEnd', code);
         }
+        Ext.select('div.shop', false, 'content').setStyle({ display:'none' });
         showPage('video');
-    } else if (page == 5) {
-        if (!Ext.fly('account')) {
-            var code = '<iframe id="account" src="http://astore.amazon.com/'+amazonAId+'/cart/"' +
-                       ' frameborder="0" allowtransparency="true" class="content links" style="display:none;"></iframe>';
-            content.insertHtml('beforeEnd', code);
-        }
-        showPage('account');
     }
 } // goto
 
@@ -116,6 +116,31 @@ function removeOverlay () {
     });
 } // removeOverlay
 
+function scrollTop () {
+    var scrollTop = Ext.fly('loader').getY() - 5;
+    var curScroll = document.documentElement.scrollTop;
+    var speed     = (Ext.isIE) ? 60 : 100;
+    while (curScroll > scrollTop) {
+        curScroll -= speed;
+        if (curScroll < scrollTop) {
+            curScroll = scrollTop;
+        }
+        document.documentElement.scrollTop = curScroll;
+    }
+} // scrollTop
+
+function showLoader () {
+    Ext.get('loader').slideIn('t', {
+        easing: 'easeOut'
+    });
+} // showLoader
+
+function hideLoader () {
+    Ext.get('loader').stopFx().slideOut('t', {
+        easing: 'easeIn'
+    });
+} // hideLoader
+
 function openCart () {
     var el = Ext.get('shoppingcart'); // element
     var bw = Ext.lib.Dom.getViewportWidth(); // body width
@@ -126,14 +151,10 @@ function openCart () {
     var tp = Math.round((bh - sh) / 2); // top
     var sl = Ext.getBody().getScroll(); // scroll position
 
-    if (!_cartTpl) { // get cart html fragment template first
-        _cartTpl = new Ext.Template.from('cartItems');
-        Ext.fly('cartItems').down('tr').remove();
-    }
-
     overlay(closeCart);
     el.setLeft(lt);
     el.setTop(sh-(sh*2));
+    el.show();
     el.moveTo(lt, sl.top+tp, {
         easing: 'easeOut',
         duration: 1
@@ -323,6 +344,8 @@ function itemSearch (page) {
     var page = typeof(page) == 'undefined' ? 1 : page;
     var id   = '';
 
+    scrollTop();
+
     Ext.each(_cache, function(e){
         if (e.search == page && e.id) {
             id = e.id;
@@ -336,15 +359,20 @@ function itemSearch (page) {
         return;
     }
 
+    showLoader();
     Ext.each(Ext.select('div.itemsShowing', false, 'listing'), function(e){
         e.fadeOut({ endOpacity: .4 });
     });
     Ext.Ajax.request({
         url: _rootpath+'amazon.php',
         method: 'POST',
-        success: displayItems,
+        success: function(response, opts) {
+            hideLoader();
+            displayItems(response);
+        },
         failure: function(response, opts) {
             // what to do?
+            hideLoader();
         },
         params: 'searchIndex='+searchIdx+'&keywords='+e_kerword1+'&page='+page
     });
@@ -438,18 +466,25 @@ function displayItems (response) {
 function viewDetail (asin) {
     var el = Ext.get(asin);
 
-    if (el) {
+    scrollTop();
+
+    if (el) { // already loaded, just display it! fast enough :)
         el.show();
         switchLeft();
         return;
     }
 
+    showLoader();
     Ext.select('div.itemsShowing', false, 'listing').fadeOut({ endOpacity: .4 });
     Ext.Ajax.request({
         url: _rootpath+'amazon1.php',
         method: 'POST',
-        success: displayDetails,
+        success: function(response, opts){
+            hideLoader();
+            displayDetails(response);
+        },
         failure: function(response, opts) { // what to do?
+            hideLoader();
             Ext.select('div.itemsShowing', false, 'listing').setOpacity(1);
         },
         params: 'asin='+asin
@@ -591,6 +626,8 @@ function switchRight () {
     var d = Ext.get('details');
     var w = Ext.get('content').getWidth();
 
+    scrollTop();
+
     d.setLeft(0);
     var x = d.getX() + w;
     var y = d.getY();
@@ -617,57 +654,13 @@ function addtocart (asin, offerId) {
     var act  = Ext.select('div.cartAction', false, 'shoppingcart');
     var item = Ext.get('cartItems');
 
-    msg.dom.innerHTML = 'verifying..';
-    msg.dom.className = 'loading';
-    msg.slideIn('l', {
-        easing:'easeOut'
-    });
-
     load.fadeIn();
     act.hide();
     Ext.Ajax.request({
         url: _rootpath+'amazon2.php',
         method: 'POST',
         success: function(response, opts) {
-            var obj = eval('('+response.responseText+')'); //Ext.encode(response.responseText);
-            var cur = '';
-            var upd = [];
-
-            if (obj.currency == 'USD') {
-                cur = '$';
-            }
-
-            Ext.fly('subtotal').update(cur+obj.subtotal);
-
-            if (_cartTpl && Ext.isArray(obj.items) && obj.items.length > 0) {
-                var itemsHTML = '';
-                Ext.each(obj.items, function(e){
-                    itemsHTML += _cartTpl.apply({
-                        itemId: e.itemId,
-                        asin: e.asin,
-                        title: e.title,
-                        qty: '<input type="text" value="'+e.qty+'" class="itemQty" />',
-                        total: cur+e.total
-                    });
-
-                    Ext.each(_cartData, function(e2){
-                        if (e2.itemId == e.itemId && e2.qty != e.qty) { // qty changed
-                            //console.log(e.itemId+': '+e.qty);
-                            upd.push(e.itemId);
-                        }
-                    });
-                });
-
-                _cartData = obj.items;
-                item.update(itemsHTML);
-                item.down('tr').fadeIn().highlight();
-                Ext.each(upd, function(e){
-                    Ext.fly(e).down('td input.itemQty').pause(1).frame();
-                });
-            } else if (_cartTpl && Ext.isArray(obj.items) && obj.items.length == 0) {
-                item.update('');
-            }
-
+            updateCart(response, 1);
             load.fadeOut();
             act.show();
         },
@@ -731,7 +724,11 @@ function updateCart (response, addnew) {
     var upd  = [];
 
     Ext.fly('subtotal').update(cur+obj.subtotal);
-    Ext.fly('subtotal').highlight();
+    Ext.fly('subtotal').highlight("ffff9c", {
+        attr: 'background-color',
+        easing: 'easeIn',
+        duration: 3
+    });
 
     if (!_puchaseURL) {
         _puchaseURL = obj.purchaseURL;
@@ -740,14 +737,18 @@ function updateCart (response, addnew) {
 
     if (_cartTpl && Ext.isArray(obj.items) && obj.items.length > 0) {
         var itemsHTML = '';
+
+        Ext.select('tr', false, 'cartItems').remove();
         Ext.each(obj.items, function(e){
-            itemsHTML += _cartTpl.apply({
+            itemsHTML = _cartTpl.apply({
                 itemId: e.itemId,
                 asin: e.asin,
                 title: e.title,
                 qty: '<input type="text" value="'+e.qty+'" class="itemQty" />',
                 total: cur+e.total
             });
+
+            item.insertHtml('beforeEnd', itemsHTML); // update cart items HTML
 
             Ext.each(_cartData, function(e2){ // see which item updated
                 if (e2.itemId == e.itemId && e2.qty != e.qty) { // qty changed
@@ -758,7 +759,6 @@ function updateCart (response, addnew) {
         });
 
         _cartData = obj.items; // update cache data
-        item.update(itemsHTML); // update cart items HTML
 
         if (addnew) { // highlight new add item in first row
             item.down('tr').fadeIn().highlight();
@@ -773,14 +773,30 @@ function updateCart (response, addnew) {
             }
         });
     } else if (_cartTpl && Ext.isArray(obj.items) && obj.items.length == 0) {
-        item.update('');
+        Ext.select('tr', false, 'cartItems').remove();
         _cartData = [];
     }
 } // updateCart
 
+function initCart () {
+    if (!_cartTpl) { // get cart html fragment template first
+        _cartTpl = new Ext.Template.from('cartItems');
+        Ext.fly('cartItems').down('tr').remove();
+    }
+    Ext.Ajax.request({
+        url: _rootpath+'amazon2.php',
+        method: 'POST',
+        success: function(response, opts) {
+            if (response.responseText != '0') {
+                updateCart(response, 0);
+            }
+        },
+        params: 'getcart=1'
+    });
+} // initCart
+
 Ext.onReady(function() {
-    //var code = '<iframe id="shop" src="http://astore.amazon.com/'+amazonAId+'" frameborder="0" allowtransparency="true" class="content links"></iframe>';
-    //Ext.fly('content').insertHtml('beforeEnd', code);
     itemSearch();
     loadDom();
+    initCart();
 });
