@@ -59,6 +59,10 @@ function generate_ebay (e) {
     document.write(code);
 } // generate_ebay
 
+function openBrWindow (URL) {
+    var popup = window.open(URL, 'PopupWindow', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=540,height=530');
+} // openBrWindow
+
 function checkAuth () {
     if (Ext.get('popup') == null) {
         console.log('page not ready');
@@ -117,15 +121,31 @@ function removeOverlay () {
 } // removeOverlay
 
 function scrollTop () {
+    var speed     = 100;
     var scrollTop = Ext.fly('loader').getY() - 5;
-    var curScroll = document.documentElement.scrollTop;
-    var speed     = (Ext.isIE) ? 60 : 100;
+
+    if (Ext.isSafari || Ext.isChrome) {
+        var curScroll = document.body.scrollTop;
+    } else {
+        var curScroll = document.documentElement.scrollTop;
+    }
+
+    if (Ext.isIE || Ext.isSafari) {
+        speed = 60;
+    } else if (Ext.isChrome) {
+        speed = 1;
+    }
+
     while (curScroll > scrollTop) {
         curScroll -= speed;
         if (curScroll < scrollTop) {
             curScroll = scrollTop;
         }
-        document.documentElement.scrollTop = curScroll;
+        if (Ext.isSafari || Ext.isChrome) {
+            document.body.scrollTop = curScroll;
+        } else {
+            document.documentElement.scrollTop = curScroll;
+        }
     }
 } // scrollTop
 
@@ -511,8 +531,13 @@ function displayDetails (response) {
         v.imageSets = '';
         Ext.each(d.ImageSets, function(e){
             var imageId  = d.ASIN+'-'+imgcnt;
-            v.imageSets += '<a href="#'+imageId+'" id="'+imageId+'_link"><div class="imageset" style="background-image:url('+e.thumb+');"></div></a>' +
-                           '<div id="'+imageId+'" style="display:none;"><img src="'+e.large+'" /></div>';
+            if (Ext.isIE7) { // ya ya, fucking IE7 again..
+                v.imageSets += '<div onclick="openBrWindow(\''+e.large+'\')" class="imageset click" style="background-image:url('+e.thumb+');"></div>';
+            } else {
+                v.imageSets += '<a href="#'+imageId+'" id="'+imageId+'_link">' +
+                                 '<div class="imageset" style="background-image:url('+e.thumb+');"></div>' +
+                               '</a><div id="'+imageId+'" style="display:none;"><img src="'+e.large+'" /></div>';
+            }
             imgcnt++;
         });
     }
@@ -615,10 +640,10 @@ function switchLeft () {
         easing: 'easeOut',
         useDisplay: true
     });
-    d.fadeIn().moveTo(x, y, {
+    d.moveTo(x, y, {
         duration: .5,
         easing: 'easeOut'
-    });
+    }).fadeIn();
 } // switchLeft
 
 function switchRight () {
@@ -632,10 +657,6 @@ function switchRight () {
     var x = d.getX() + w;
     var y = d.getY();
 
-    l.slideIn('l',{
-        duration: .5,
-        easing: 'easeOut',
-    });
     d.moveTo(x, y, {
         duration: .5,
         easing: 'easeOut'
@@ -644,7 +665,24 @@ function switchRight () {
             Ext.select('div.detailsWrap', false, 'details').setStyle({ display:'none' });
         }
     });
+
+    if (Ext.isIE7) { // yes, fucking IE7 again..
+        l.fadeIn();
+    } else {
+        l.slideIn('l',{
+            duration: .5,
+            easing: 'easeOut'
+        });
+    }
 } // switchRight
+
+function switchBanner () {
+    var adsense = '<div class="adsense" style="width:160px; height:600px; overflow:hidden;"><iframe src="../../adsense.php" frameborder="0" allowtransparency="true"></iframe></div>';
+    Ext.get('adsenseWrap').insertHtml('beforeEnd', adsense);
+    Ext.select('div.adsense:first').slideOut('t', {
+        useDisplay: true
+    }).remove();
+} // switchBanner
 
 function addtocart (asin, offerId) {
     openCart();
