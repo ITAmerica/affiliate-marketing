@@ -164,6 +164,7 @@ input.itemQty {
 }
 #content div.itemBlk {
     margin: 10px 8px 10px 8px;
+    width: 317px;
 }
 #content div.itemDesc {
     width: 150px;
