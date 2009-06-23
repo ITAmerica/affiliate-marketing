@@ -1,4 +1,5 @@
 <?php
+  session_start();
   require_once 'includes/tarzan.class.php';
 
   $searchIndex = isset($_POST['searchIndex']) ? $_POST['searchIndex'] : 'all';
@@ -81,6 +82,7 @@
       'items'      => $list
   );
   echo json_encode($json);
+  $_SESSION['json'] = $json;
   exit;
 ?>
 <pre><?php print_r($list); ?></pre>

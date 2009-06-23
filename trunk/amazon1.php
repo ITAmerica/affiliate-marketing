@@ -1,4 +1,5 @@
 <?php
+  session_start();
   require_once 'includes/tarzan.class.php';
 
   function format_number ($num) {
@@ -144,6 +145,7 @@
       'details' => $details
   );
   echo json_encode($json);
+  $_SESSION['json'] = $json;
   exit;
 ?>
 <pre><?php print_r($details); ?></pre>

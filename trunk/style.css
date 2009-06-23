@@ -24,6 +24,20 @@ iframe {
 .abs {
     position: absolute;
 }
+.adv160x600 {
+    width: 160px;
+    height: 600px;
+    overflow: hidden;
+}
+div.ads {
+    position: absolute;
+    top: 7px;
+    left: 0;
+}
+div.adsense {
+    height: 602px;
+    position: relative;
+}
 .fixed {
     position: fixed;
 }
