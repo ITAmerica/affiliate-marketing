@@ -372,6 +372,7 @@ function itemSearch (page) {
         }
     });
     if (id) {
+        switchBanner(id);
         Ext.each(Ext.select('div.itemsShowing', false, 'listing'), function(e){
             e.setStyle({ display:'none' });
         });
@@ -416,6 +417,8 @@ function displayItems (response) {
     var navig = page - 3 + prev;
     var nsize = range * 2 + 1;
     var count = 1;
+
+    switchBanner(time);
 
     while (count <= nsize) {
         if (navig > 0) { // page has to be positive number
@@ -489,6 +492,7 @@ function viewDetail (asin) {
     scrollTop();
 
     if (el) { // already loaded, just display it! fast enough :)
+        switchBanner(asin);
         el.show();
         switchLeft();
         return;
@@ -525,6 +529,8 @@ function displayDetails (response) {
         description: d.Content,
         sessionId: ''
     };
+
+    switchBanner(d.ASIN);
 
     if (Ext.isArray(d.ImageSets) && d.ImageSets.length > 0) {
         var imgcnt  = 1;
@@ -676,12 +682,22 @@ function switchRight () {
     }
 } // switchRight
 
-function switchBanner () {
-    var adsense = '<div class="adsense" style="width:160px; height:600px; overflow:hidden;"><iframe src="../../adsense.php" frameborder="0" allowtransparency="true"></iframe></div>';
-    Ext.get('adsenseWrap').insertHtml('beforeEnd', adsense);
-    Ext.select('div.adsense:first').slideOut('t', {
-        useDisplay: true
-    }).remove();
+function switchBanner (unique_id) {
+    var selector = Ext.select('div.adv_'+unique_id);
+
+    Ext.select('div.ads').fadeOut({
+        concurrent: true
+    });
+
+    if (selector.elements.length == 0) {
+        var adsense = '<div class="ads adv_'+unique_id+' adv160x600">' +
+                        '<iframe src="'+_rootpath+'adsense.php" frameborder="0" allowtransparency="true" class="adv160x600"></iframe>'+
+                      '</div>';
+        Ext.select('div.adsense').insertHtml('beforeEnd', adsense);
+        Ext.select('div.adv_'+unique_id).fadeIn();
+    } else {
+        Ext.select('div.adv_'+unique_id).pause(1).fadeIn();
+    }
 } // switchBanner
 
 function addtocart (asin, offerId) {

@@ -18,11 +18,7 @@ body {
 </head>
 <body>
 
-<div style="display:none;">
-<?php
-    echo $config['e_kerword1'].' '.$config['e_kerword2']."\r\n";
-?>
-</div>
+<div style="width:160px; height:600px;">
 <script type="text/javascript">
 <!--
 google_ad_client    = '<?php echo $config['adsenseId']; ?>';
@@ -40,6 +36,14 @@ google_ui_features  = "rc:0";
 //-->
 </script>
 <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+</div>
+
+<div>
+<?php
+    echo $config['e_kerword1'].' '.$config['e_kerword2']."\r\n";
+    print_r($_SESSION['json']);
+?>
+</div>
 
 </body>
 </html>
