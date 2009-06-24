@@ -7,7 +7,7 @@ var amazonAId = '{amazonAId}';
 var searchIdx = 'Automotive';
 var width     = 746;
 var height    = 950;
-var template  = 'solar';
+var template  = '{template}';
 
 /* eBay Feed Settings */
 var e_kerword1 = '{e_kerword1}';
