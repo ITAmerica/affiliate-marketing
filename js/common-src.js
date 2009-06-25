@@ -3,6 +3,8 @@ var _cache      = [];
 var _cartData   = [];
 var _logged     = false;
 var _cartTpl    = '';
+var _listingTpl = '';
+var _detailsTpl = '';
 var _reviewsTpl = '';
 var _puchaseURL = '';
 
@@ -162,6 +164,10 @@ function hideLoader () {
 } // hideLoader
 
 function openCart () {
+    if (!_cartTpl) { // steady man, DOM not ready..
+        return false;
+    }
+
     var el = Ext.get('shoppingcart'); // element
     var bw = Ext.lib.Dom.getViewportWidth(); // body width
     var bh = Ext.lib.Dom.getViewportHeight(); // body height
@@ -353,6 +359,51 @@ function loadDom () {
             }
         }
     });
+
+    if (Ext.get('shoppingcart') == null) { // use default shopping cart template
+        Ext.Ajax.request({
+            url: _rootpath+'shoppingcart.inc.html',
+            success: function(response, opts) {
+                var html = response.responseText;
+                if (html) {
+                    Ext.getBody().insertHtml('beforeEnd', html);
+                    initCart();
+                }
+            }
+        });
+    } else { // custom shopping cart template found
+        initCart();
+    }
+
+    if (Ext.get('listing') == null) {
+        Ext.Ajax.request({
+            url: _rootpath+'listing.inc.html',
+            success: function(response, opts) {
+                var html = response.responseText;
+                if (html) {
+                    Ext.fly('content').down('div').insertHtml('beforeEnd', html);
+                    initListing();
+                }
+            }
+        });
+    } else {
+        initListing();
+    }
+
+    if (Ext.get('details') == null) {
+        Ext.Ajax.request({
+            url: _rootpath+'details.inc.html',
+            success: function(response, opts) {
+                var html = response.responseText;
+                if (html) {
+                    Ext.fly('content').down('div').insertHtml('beforeEnd', html);
+                    initDetails();
+                }
+            }
+        });
+    } else {
+        initDetails();
+    }
 } // loadDom
 
 function getYear () {
@@ -363,6 +414,10 @@ function getYear () {
 function itemSearch (page) {
     var page = typeof(page) == 'undefined' ? 1 : page;
     var id   = '';
+
+    if (!_listingTpl) {
+        return false;
+    }
 
     scrollTop();
 
@@ -434,14 +489,14 @@ function displayItems (response) {
         navig++;
     }
 
-    var titleHTML      = new Ext.Template.from('itemsTitleTpl').apply({ title:ititle });
-    var navigationHTML = new Ext.Template.from('itemsNavigationTpl').apply({
+    var titleHTML      = _listingTpl.title.apply({ title:ititle });
+    var navigationHTML = _listingTpl.nav.apply({
         recordset: recset,
         total: total,
         pagination: paging
     });
 
-    var bodyTpl  = new Ext.Template.from('itemsListingTpl');
+    var bodyTpl  = _listingTpl.items;
     var bodyHTML = '<div class="itemsBody">';
     Ext.each(obj.items, function(o){
         var title = o.Title.substr(0, 50)+'...';
@@ -489,6 +544,10 @@ function displayItems (response) {
 function viewDetail (asin) {
     var el = Ext.get(asin);
 
+    if (!_detailsTpl) {
+        return false;
+    }
+
     scrollTop();
 
     if (el) { // already loaded, just display it! fast enough :)
@@ -518,7 +577,7 @@ function viewDetail (asin) {
 function displayDetails (response) {
     var o = eval('('+response.responseText+')');
     var d = o.details;
-    var t = '<div id="'+d.ASIN+'" class="detailsWrap">'+Ext.getDom('detailsTpl').innerHTML+'</div>';
+    var t = '<div id="'+d.ASIN+'" class="detailsWrap">'+_detailsTpl+'</div>';
     var t = new Ext.Template(t);
     var v = {
         img: d.Image,
@@ -570,10 +629,6 @@ function displayDetails (response) {
         Ext.each(d.Features, function(e){
             v.features += '<li>'+e+'</li>';
         });
-    }
-    if (!_reviewsTpl) { // get customerReviews html fragment template first
-        _reviewsTpl = new Ext.Template.from('customerReviews');
-        Ext.fly('customerReviews').remove();
     }
     if (_reviewsTpl && Ext.isArray(d.CustomerReviews) && d.CustomerReviews.length > 0) {
         var cusReviewsHTML = '';
@@ -849,8 +904,25 @@ function initCart () {
     });
 } // initCart
 
-Ext.onReady(function() {
+function initDetails () {
+    _reviewsTpl = new Ext.Template.from('customerReviews'); // get customerReviews html fragment template first
+    Ext.fly('customerReviews').remove();
+    _detailsTpl = Ext.getDom('detailsTpl').innerHTML;
+    Ext.fly('detailsTpl').remove();
+} // initDetails
+
+function initListing () {
+    _listingTpl = {
+        title: new Ext.Template.from('itemsTitleTpl'),
+        nav: new Ext.Template.from('itemsNavigationTpl'),
+        items: new Ext.Template.from('itemsListingTpl')
+    };
+    Ext.fly('itemsTitleTpl').remove();
+    Ext.fly('itemsNavigationTpl').remove();
+    Ext.fly('itemsListingTpl').remove();
     itemSearch();
+} // initListing
+
+Ext.onReady(function() {
     loadDom();
-    initCart();
 });

@@ -11,7 +11,7 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/fancyzoom/fancyzoom.min.js"></script>
 <script type="text/javascript" src="../../data/config.js"></script>
-<script type="text/javascript" src="../../js/common-src.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
 </head>
 <body>
 <table border="0" align="center" cellpadding="0" cellspacing="10">
@@ -113,7 +113,7 @@ amzn_wdgt.marketPlace='US';
   <div class="itemPrice right">{price}</div>
 </div>
           </div>
-          <div id="details" class="abs shop" style="visibility:hidden;">
+          <div id="details" class="abs shop invisible">
             <div class="goback" onclick="switchRight()">Back</div>
 <div id="detailsTpl" class="hide clear">
   <div class="mainTitle">Product Details</div>
@@ -224,7 +224,7 @@ generate_ebay(params);
               <div class="mainTitle">Shopping Cart</div>
               <div class="body" style="padding:0 24px 14px 24px; background-color:#fff;">
                 <div id="cartLoading" style="padding-top:6px; visibility:hidden;">
-                  <div class="cartLoading" style="background:url(../../images/loading.gif) no-repeat; width:60px; padding-left:20px; margin:0 auto;">updating..</div>
+                  <div class="cartLoading">updating..</div>
                 </div>
                 <div style="font-size:9pt; font-weight:500; line-height:12pt; margin:12px 0;">
                  When you are ready to check out, please click the "Proceed to Checkout" button at the bottom of this page.

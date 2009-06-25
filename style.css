@@ -53,6 +53,9 @@ div.adsense {
 .hide {
     display: none;
 }
+.invisible {
+    visibility: hidden;
+}
 .left {
     float: left;
 }
@@ -122,6 +125,12 @@ div.goback {
     font-weight: bold;
     float: right;
     cursor: pointer;
+}
+div.cartLoading {
+    background: transparent url(images/loading.gif) 0 2px no-repeat;
+    width: 60px;
+    padding: 1px 0 1px 20px;
+    margin: 0 auto;
 }
 input.itemQty {
     text-align: right;

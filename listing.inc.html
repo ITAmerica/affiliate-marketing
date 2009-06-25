@@ -1,0 +1,21 @@
+          <div id="listing" class="shop">
+<div id="itemsTitleTpl" class="hide">
+  <div class="itemsTitle">{title}</div>
+</div>
+<div id="itemsNavigationTpl" class="hide">
+  <div class="recordset left">Showing <b><span class="showing">{recordset}</span></b> of <b>{total}</b> results</div>
+  <div class="paging right">{pagination}</div>
+  <div class="clear" style="height:5px;"></div>
+</div>
+<div id="itemsListingTpl" class="hide">
+  <div class="itemDesc left">
+    <div class="itemTitle" title="{title}" onclick="viewDetail('{asin}')">{stitle}</div>
+    <div class="itemSummary">{summary}</div>
+  </div>
+  <div class="itemImage right" style="background-image:url({thumbnail})" onclick="viewDetail('{asin}')"></div>
+  <div class="clear" style="height:2px;"></div>
+  <div class="but_detail left" onclick="viewDetail('{asin}')">{details}</div>
+  <div class="but_addcart left" onclick="addtocart('{asin}','{offerId}')">{addCart}</div>
+  <div class="itemPrice right">{price}</div>
+</div>
+          </div>
