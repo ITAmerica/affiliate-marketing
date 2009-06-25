@@ -54,7 +54,7 @@ google_ad_channel   = '<?php /*echo $config['adChannel'];*/ ?>';
 <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 </div>
 
-<div id="content" style="width:900px; margin:10px;">
+<div id="content" style="width:900px; margin:10px; display:none;">
 <?php
     echo '<div><b>Keywords:</b> '.$config['e_kerword1'].', '.$config['e_kerword2']."</div>";
     echo array2str($_SESSION['json']);

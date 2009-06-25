@@ -1,0 +1,55 @@
+          <div id="shoppingcart" class="fixed" style="visibility:hidden;">
+            <div style="width:742px;">
+              <div class="closecart" onclick="closeCart();">Close</div>
+              <div class="mainTitle">Shopping Cart</div>
+              <div class="body" style="padding:0 24px 14px 24px; background-color:#fff;">
+                <div id="cartLoading" style="padding-top:6px; visibility:hidden;">
+                  <div class="cartLoading">updating..</div>
+                </div>
+                <div style="font-size:9pt; font-weight:500; line-height:12pt; margin:12px 0;">
+                 When you are ready to check out, please click the "Proceed to Checkout" button at the bottom of this page.
+                 You will be taken to the Amazon.com cart page to securely complete your transaction.
+                </div>
+                <table border="0" cellpadding="0" cellspacing="1" class="cartTable">
+                  <thead>
+                    <tr>
+                      <td class="cartColumn">&nbsp;</td>
+                      <td class="cartColumn">Item</td>
+                      <td class="cartColumn">Quantity</td>
+                      <td class="cartColumn" align="right">Price</td>
+                    </tr>
+                  </thead>
+                  <tbody id="cartItems">
+                    <tr id="{itemId}">
+                      <td align="center" class="item">
+                        <img height="17" width="47" alt="Delete" class="click" onclick="updateItem('{itemId}')"
+                         src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/delete-sm-sec._V46786939_.png" />
+                      </td>
+                      <td class="item"><div onclick="viewDetail('{asin}')">{title}</div></td>
+                      <td align="right" class="item">{qty}</td>
+                      <td align="right" class="item"><span class="total">{total}</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="subtotal">Subtotal: <span id="subtotal">0.00</span></div>
+                <div class="cartAction makeChange">
+                  Make any changes above?
+                  <input type="image" height="17" width="94" align="absmiddle" value="Go" alt="Update subtotal" onclick="updateItem()"
+                   src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/update-subtotal-sm-sec._V46788243_.png" />
+                </div>
+                <div class="cartbuttons">
+                  <div class="left">
+                    <img height="22" width="119" alt="Continue shopping" class="click" onclick="closeCart()"
+                     src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/continue-shopping-md-sec._V46787018_.png" />
+                  </div>
+                  <div class="cartAction right">
+                    <form action="" id="checkoutform" name="checkoutform" method="post">
+                      <input type="image" id="proceedToCheckoutBtn" name="pngImage" height="27" width="153" alt="Proceed to checkout"
+                        src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/proceed-to-checkout-yellow._V46787518_.png" />
+                    </form>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+            </div>
+          </div>

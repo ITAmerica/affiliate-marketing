@@ -1,0 +1,65 @@
+          <div id="details" class="abs shop invisible">
+            <div class="goback" onclick="switchRight()">Back</div>
+<div id="detailsTpl" class="hide clear">
+  <div class="mainTitle">Product Details</div>
+  <div class="body" style="padding:14px 24px;">
+    <table border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>
+          <div class="image" style="background-image:url({img});"></div>
+          <div class="imagesets">{imageSets}</div>
+        </td>
+        <td>
+          <div>
+            <h2>{title}<div class="by">{by}</div></h2>
+          </div>
+          <table border="0" cellpadding="2" cellspacing="0" style="margin:10px 0;">
+            <tr class="detailListPrice">
+              <td valign="top" class="label"><span>List Price: </span></td>
+              <td valign="top"><span class="amount listprice">{listprice}</span></td>
+            </tr>
+            <tr class="detailOfferPrice">
+              <td valign="top" class="label"><span>Price: </span></td>
+              <td valign="top">
+                <span class="amount">{offerprice}</span>
+                <span class="saver">{saver}</span>
+              </td>
+            </tr>
+          </table>
+
+          <input type="image" height="27" width="159" border="0" id="buybutton" name="pngImage" onclick="addtocart('{asin}', '{offerId}')"
+           src="http://g-ecx.images-amazon.com/images/G/01/associates/storebuilder/add-to-cart-yellow._V46788356_.png" alt="Add to cart" />
+
+          <div class="availability"><b>Availability: </b><span>{availability}</span></div>
+          <div class="avgReviewStars" style="background-image:url(http://images.amazon.com/images/G/01/associates/network/star{avgRating}_tpng.png);">
+            Average customer review:
+          </div>
+        </td>
+      </tr>
+    </table>
+    <div class="productDescription">
+      <h2>Product Description</h2>
+      <p>{description}</p>
+    </div>
+    <div class="productDetails">
+      <hr />
+      <h2>Product Details</h2>
+      <ul>{details}</ul>
+      <h3>Features</h3>
+      <ul>{features}</ul>
+    </div>
+
+    <div class="customerReviews">
+      <hr />
+      <h2>Customer Reviews</h2>
+      <div id="customerReviews"><div class="customerReview">
+        <div class="reviewStars" style="background-image:url(http://images.amazon.com/images/G/01/associates/network/star{reviewRank}_tpng.png);">
+          <span class="reviewtitle">{reviewSummary}</span>
+        </div>
+        <div class="clear">{review}</div>
+      </div></div>{customerReviews}
+
+    </div>
+  </div>
+</div>
+          </div>
