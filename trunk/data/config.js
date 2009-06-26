@@ -1,24 +1,24 @@
 /* Affiliate Ids */
-var sitename  = 'Solar Energy';
+var sitename  = 'My Apple Store';
 var adsenseId = 'pub-8854406757815559';
 var adChannel = '0443638394';
-var eBayAId   = 'ny{ze|yq!';
-var amazonAId = 'solar-system-20';
-var searchIdx = 'HomeGarden';
+var eBayAId   = '5336332240';
+var amazonAId = 'applestore101-20';
+var searchIdx = 'PCHardware';
 var width     = 746;
-var height    = 950;
-var template  = 'solar';
+var height    = 900;
+var template  = 'apple';
 
 /* eBay Feed Settings */
-var e_kerword1 = 'solar energy';
-var e_kerword2 = 'solar panel';
+var e_kerword1 = 'Macbook';
+var e_kerword2 = 'ipod';
 
 /* Video */
-var v_keyword = 'solar energy';
+var v_keyword = 'apple laptop';
 
 /* NewS Feed Settings */
 var n = {
-    keywords: 'solar energy',
+    keywords: 'mac',
     myp: 'homepage',
     id: 4416214844134,
     code: 'html',
@@ -40,10 +40,10 @@ var n = {
     text_alignment: 'Left',
     space: 'Yes',
     titlecolor: '#000000',
-    fcolor: '#A43907',
+    fcolor: '#33578B',
     desccolor: '#000000',
     sourcecolor: '#000000',
     datecolor: '#999999',
-    bordercolor: '#cccccc',
-    bgcolor: '#FFFFFF'
+    bordercolor: '#FFFFFF',
+    bgcolor: '#EEFC9B'
 };
