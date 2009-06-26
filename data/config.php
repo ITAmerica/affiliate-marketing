@@ -1,1 +1,1 @@
-<?php $config = array('template'=>'solar','pwd'=>'abc123','sitename'=>'Solar Energy','adsenseId'=>'pub-8854406757815559','eBayAId'=>'ny{ze|yq!','amazonAId'=>'solar-system-20','e_kerword1'=>'solar energy','e_kerword2'=>'solar panel'); ?>
+<?php $config = array('template'=>'apple','pwd'=>'abc123','sitename'=>'My Apple Store','adsenseId'=>'pub-8854406757815559','eBayAId'=>'5336332240','amazonAId'=>'applestore101-20','e_kerword1'=>'Macbook','e_kerword2'=>'ipod'); ?>

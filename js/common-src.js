@@ -20,15 +20,10 @@ function goto (page) {
     }
 
     if (page == 1) {
-        Ext.select('div.shop', false, 'content').setStyle({ display:'block' });;
+        Ext.select('div.shop', false, 'content').setStyle({ display:'block' });
     } else if (page == 2) {
-        if (Ext.fly('auction') == null) {
-            var code = '<iframe id="auction" src="'+_rootpath+'ebay.php?ai='+eBayAId+'&query='+e_kerword1+'&eksize=1&num=12&minprice=100"' +
-                       ' frameborder="0" allowtransparency="true" class="content links" style="display:none;"></iframe>';
-            content.insertHtml('beforeEnd', code);
-        }
         Ext.select('div.shop', false, 'content').setStyle({ display:'none' });
-        showPage('auction');
+        showPage('ebayListing');
     } else if (page == 3) {
         if (!Ext.fly('news')) {
             var para = Ext.urlEncode(n);
@@ -40,7 +35,7 @@ function goto (page) {
         showPage('news');
     } else if (page == 4) {
         if (!Ext.fly('video')) {
-            var code = '<embed id="video" class="links" src="http://www.blinkx.com/w?g_sApiQuery=%2Fapi3%2Fstart%2Ephp%3Faction%3Dquery%26databasematch%3Dmedia%26totalresults%3Dtrue%26text%3D'+v_keyword+'%26start%3D1%26maxresults%3D36%26sortby%3Drelevance%26removedredatabases%3DPodcast%26fieldtext%3D%26clientregion%3DHI%26characters%3D10000%26clientip%3D118%2E100%2E142%2E105g%5FiQueryOffset%3D0&g_StageWidth='+width+'&g_StageHeight='+height+'&g_ApiServer=www.blinkx.com&g_sImgServer=http://cdn-99.blinkx.com/store" width="'+width+'" height="'+height+'" quality="high" bgcolor="#000000" name="newwall" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />';
+            var code = '<embed id="video" wmode="opaque" class="links" src="http://www.blinkx.com/w?g_sApiQuery=%2Fapi3%2Fstart%2Ephp%3Faction%3Dquery%26databasematch%3Dmedia%26totalresults%3Dtrue%26text%3D'+v_keyword+'%26start%3D1%26maxresults%3D36%26sortby%3Drelevance%26removedredatabases%3DPodcast%26fieldtext%3D%26clientregion%3DHI%26characters%3D10000%26clientip%3D118%2E100%2E142%2E105g%5FiQueryOffset%3D0&g_StageWidth='+width+'&g_StageHeight='+height+'&g_ApiServer=www.blinkx.com&g_sImgServer=http://cdn-99.blinkx.com/store" width="'+width+'" height="'+height+'" quality="high" bgcolor="#000000" name="newwall" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />';
            content.insertHtml('beforeEnd', code);
         }
         Ext.select('div.shop', false, 'content').setStyle({ display:'none' });
@@ -55,9 +50,10 @@ function showPage (page) {
     });
 } // showPage
 
-function generate_ebay (e) {
+function generate_ebay (e, cls) {
     var para = Ext.urlEncode(e);
-    var code = '<iframe src="'+_rootpath+'ebay.php?ai='+eBayAId+'&'+para+'" frameborder="0" allowtransparency="true" class="ebay_sm"></iframe>';
+    var cls  = (typeof cls == 'undefined') ? 'ebay_sm' : cls;
+    var code = '<iframe src="'+_rootpath+'ebay.php?track='+eBayAId+'&'+para+'" frameborder="0" allowtransparency="true" class="'+cls+'"></iframe>';
     document.write(code);
 } // generate_ebay
 
