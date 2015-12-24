@@ -1,0 +1,1 @@
+Earning through Amazon and eBay affiliate marketing.
